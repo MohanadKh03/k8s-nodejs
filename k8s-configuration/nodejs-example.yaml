@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-deployment
+  labels:
+    env: test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      env: test
+  template:
+    metadata:
+      labels:
+        env: test 
+    spec:
+      containers:
+      - name: nodejs-alpine-helloworld 
+        image: nodejs-alpine     #Image Name MUST be the same as the image name we built earlier
+        imagePullPolicy: Never   #Using 'Never' in order to get the local image not from a cloud registry like Dockerhub
+        ports:
+        - containerPort: 8080    #dont forget to have the same port as the one in the index.js
